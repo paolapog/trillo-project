@@ -1,1 +1,1 @@
-A simple web app purely in sass and flexbox.
+A simple web app purely in sass, advanced css and flexbox.
