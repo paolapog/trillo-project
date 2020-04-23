@@ -13,6 +13,12 @@
     flex: 0 0 40%;
     justify-content: center;
 
+    @media only screen and (max-width: $bp-smallest) {
+        background-color: var(--color-grey-light-2);
+        order: 1;
+        flex: 0 0 100%;    
+    }
+
     &__input {
         background-color: var(--color-grey-light-2);
         border: none;
@@ -119,12 +125,26 @@
     list-style: none;
     margin-top: 3.5rem;
 
+    @media only screen and (max-width: $bp-medium) {
+        display: flex;
+        margin: 0;
+    }
+    
     &__item {
         position: relative;
 
         &:not(::last-child) {
             margin-bottom: .5rem;
+
+            @media only screen and (max-width: $bp-medium) {
+                margin-bottom: 0;
+            }
         }
+
+        @media only screen and (max-width: $bp-medium) {
+            flex: 1;
+        }
+    
     }
     
     &__item::before {
@@ -164,6 +184,16 @@
         text-decoration: none;
         text-transform: uppercase;
         z-index: 10;
+
+        @media only screen and (max-width: $bp-medium) {
+            padding: 2rem;
+            justify-content: center;
+        }
+
+        @media only screen and (max-width: $bp-small) {
+            flex-direction: column;
+            padding: 1.5rem .5rem;
+        }
     }
 
     &__icon {
@@ -171,6 +201,13 @@
         margin-right: 2rem;
         height: 1.75rem;
         width: 1.75rem;
+
+        @media only screen and (max-width: $bp-small) {
+            margin: 0;
+            margin-bottom: .7rem;
+            height: 1.5rem;
+            width: 1.5rem;
+        }
     }
 }
 
@@ -181,6 +218,10 @@
     font-size: 1.2rem;
     text-align: center;
     padding: 2.5rem;
+
+    @media only screen and (max-width: $bp-medium) {
+        display: none;
+    }
 }
 
 //gallery
@@ -207,6 +248,11 @@
         letter-spacing: 1px;
         padding: 1.5rem 3rem;
         text-transform: uppercase;
+
+        @media only screen and (max-width: $bp-small) {
+            font-size: 1.8rem;
+            padding: 1.25rem 2rem;
+        }
     }
 
     &__stars {
@@ -241,17 +287,29 @@
         margin-left: 3rem;
         padding: 0 2.25rem;
         justify-content: center;
+
+        @media only screen and (max-width: $bp-small) {
+            padding: 0 1.5rem;
+        }
     }
 
     &__rating-average {
         font-size: 2.25rem;
         font-weight: 300;
         margin-bottom: -3px;
+
+        @media only screen and (max-width: $bp-small) {
+            font-size: 1.8rem;
+        }
     }
 
     &__rating-count {
         font-size: .8rem;
         text-transform: uppercase;
+
+        @media only screen and (max-width: $bp-small) {
+            font-size: .5rem;
+        }
     }
 }
 
@@ -331,15 +389,19 @@
 
     &__item:before {
         //older browsers
-        // background-image: url(../img/chevron-thin-right.svg);
-        // background-size: cover;
+        background-image: url(../img/chevron-thin-right.svg);
+        background-size: cover;
 
         //new browsers - masks
-        background-color: var(--color-primary);
-        -webkit-mask-image: url(../img/chevron-thin-right.svg);
-        -webkit-mask-size: cover;
-        mask-image: url(../img/chevron-thin-right.svg);
-        mask-size: cover;
+        @supports (-webkit-mask-image: url()) or (-webkit-mask: url()) {
+            //bckimg if it doesn't support masks
+            background-image: none;
+            background-color: var(--color-primary);
+            -webkit-mask-image: url(../img/chevron-thin-right.svg);
+            -webkit-mask-size: cover;
+            mask-image: url(../img/chevron-thin-right.svg);
+            mask-size: cover;
+        }
         content: "";
         display: inline-block;
         height: 1rem;
@@ -374,7 +436,7 @@
         width: 4rem;
 
         &:not(:last-child) {
-            margin-right: -1.5rem;
+            margin-right: -2rem;
         }
     }
 }
@@ -388,6 +450,11 @@
     overflow: hidden;
     padding: 3rem;
     position: relative;
+
+    @media only screen and (max-width: $bp-medium) {
+        margin-bottom: 3rem;
+        padding: 2rem;
+    }
 
     &__text {
         margin-bottom: 2rem;
@@ -439,5 +506,72 @@
         position: absolute;
         top: -2.75rem;
         z-index: 1;
+    }
+}
+
+//call to action
+
+.cta {
+    padding: 3.5rem 0;
+    text-align: center;
+
+    @media only screen and (max-width: $bp-medium) {
+        padding: 2.5rem 0;
+    }
+
+    &__book-now {
+        font-size: 1.2rem;
+        font-weight: 300;
+        margin-bottom: 2.5rem;
+        text-transform: uppercase;
+    }
+}
+
+.btn {
+    background-image: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 100px;
+    font-size: 1.5rem;
+    font-weight: 300;
+    overflow: hidden;
+    position: relative;
+    text-transform: uppercase;
+
+    & > * {
+        display: inline-block;
+        height: 100%;
+        transition: all .2s;
+        height: 100%;
+    }
+
+    &__visible {
+        padding: 2rem 7.5rem;
+    }
+
+    &__invisible {
+        height: 100%;
+        left: 0;
+        padding: 2rem 0;
+        position: absolute;
+        top: -100%;
+        width: 100%;
+    }
+    &:hover {
+        background-image: linear-gradient(to left, var(--color-primary-light), var(--color-primary-dark));
+    }
+
+    &:hover &__visible {
+        transform: translateY(100%);
+    }
+
+    &:hover &__invisible {
+        top: 0;
+    }
+
+    &:focus {
+        animation: pulsate 1s infinite;
+        outline: none;
     }
 }
