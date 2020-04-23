@@ -1,9 +1,8 @@
 .container {
     background-color: var(--color-grey-light-2);
     box-shadow: var(--shadow-dark);
-    margin: 8rem auto;
+    margin: 4rem auto;
     max-width: 120rem;
-
     min-height: 50rem;
 }
 
@@ -39,6 +38,7 @@
     background-color: var(--color-grey-light-1);
     border-bottom: var(--line);
     display: flex;
+    font-size: 1.4rem;
     padding: 4.5rem;
 }
 
@@ -46,13 +46,14 @@
     background-color: #fff;
     box-shadow: var(--shadow-light);
     flex: 0 0 60%;
-    font-size: 1.4rem;
-    margin-right: 3.5rem;
+    margin-right: 4.5rem;
     padding: 3rem;
 }
 
 .user-reviews {
-    background-color: yellow;
+    align-items: center;
+    display: flex;
     //remaning space
     flex: 1;
+    flex-direction: column;
 }
